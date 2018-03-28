@@ -38,6 +38,7 @@ $(foreach dep,$(DEPENDENCIES),$(eval $(call dep_flags,$(dep))))
 
 LDFLAGS := $(DEP_LDFLAGS) \
 	$(if $(WITH_MINGW),-lwinpthread) \
+	-L$(SYSROOT)/usr/lib64 \
 	-L$(SYSROOT)/usr/lib -lmatio -lz -lm -lad9361
 
 ifeq ($(WITH_MINGW),y)
