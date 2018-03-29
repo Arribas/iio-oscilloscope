@@ -3039,11 +3039,13 @@ static void channels_transform_assignment(GtkTreeModel *model,
 			prm->ch_settings = g_slist_reverse(prm->ch_settings);
 			transform = add_transform_to_list(plot, CROSS_CORRELATION_TRANSFORM, prm->ch_settings);
 		}
+		break;
 	case SPECTRUM_PLOT:
 		if (prm->enabled_channels == 2 && num_added_chs == 2) {
 			prm->ch_settings = g_slist_reverse(prm->ch_settings);
 			transform = add_transform_to_list(plot, FREQ_SPECTRUM_TRANSFORM, prm->ch_settings);
 		}
+		break;
 	default:
 		break;
 	}
@@ -4135,6 +4137,7 @@ static void transform_csv_print(OscPlotPrivate *priv, FILE *fp, Transform *tr)
 	case 2:
 		node = g_slist_nth(tr->plot_channels, 1);
 		id2 = PLOT_CHN(node->data)->name;
+		/* FALLTHROUGH */
 	case 1:
 		node = g_slist_nth(tr->plot_channels, 0);
 		id1 = PLOT_CHN(node->data)->name;
