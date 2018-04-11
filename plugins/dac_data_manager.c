@@ -647,6 +647,10 @@ static void enable_dds(struct dac_data_manager *manager, bool on_off)
 	dac1 = manager->dac1.iio_dac;
 	if (manager->dacs_count == 2)
 		dac2 = manager->dac2.iio_dac;
+	//debug
+	const char *name;
+	name=iio_channel_get_name(iio_device_find_channel(dac1, "altvoltage0", true));
+    printf("iio_channel_attr_write_bool on channel %s atrib %s value %d\n",name,"raw", on_off);
 
 	ret = iio_channel_attr_write_bool(iio_device_find_channel(dac1, "altvoltage0", true), "raw", on_off);
 	if (ret < 0) {
@@ -654,6 +658,11 @@ static void enable_dds(struct dac_data_manager *manager, bool on_off)
 		return;
 	}
 	if (dac2) {
+	    //debug
+	    const char  *name;
+	    name=iio_channel_get_name(iio_device_find_channel(dac2, "altvoltage0", true));
+	    printf("iio_channel_attr_write_bool on channel %s atrib %s value %d\n",name,"raw", on_off);
+
 		ret = iio_channel_attr_write_bool(iio_device_find_channel(dac2, "altvoltage0", true), "raw", on_off);
 		if (ret < 0) {
 			fprintf(stderr, "Failed to toggle DDS: %d\n", ret);

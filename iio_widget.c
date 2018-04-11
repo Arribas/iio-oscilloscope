@@ -144,18 +144,42 @@ static void spin_button_save(struct iio_widget *widget, bool is_double)
 
 	if (widget->chn) {
 		if (is_double)
+		{
+		    //debug
+		    const char  *name;
+		    name=iio_channel_get_name(widget->chn);
+		    printf("iio_channel_attr_write_double on channel %s atrib %s value %f\n",name,widget->attr_name,freq);
 			iio_channel_attr_write_double(widget->chn,
 					widget->attr_name, freq);
-		else
+		}
+		else{
+
+		    //debug
+		    const char  *name;
+            name=iio_channel_get_name(widget->chn);
+            printf("iio_channel_attr_write_longlong on channel %s atrib %s value %f\n",name,widget->attr_name,freq);
 			iio_channel_attr_write_longlong(widget->chn,
 					widget->attr_name, (long long) freq);
+		}
 	} else {
 		if (is_double)
+		{
+            //debug
+		    const char  *name;
+            name=iio_device_get_name(widget->dev);
+            printf("iio_device_attr_write_double on device %s atrib %s value %f\n",name,widget->attr_name,freq);
 			iio_device_attr_write_double(widget->dev,
 					widget->attr_name, freq);
+		}
 		else
+		{
+            //debug
+		    const char  *name;
+            name=iio_device_get_name(widget->dev);
+            printf("iio_device_attr_write_longlong on device %s atrib %s value %f\n",name,widget->attr_name,freq);
 			iio_device_attr_write_longlong(widget->dev,
 					widget->attr_name, (long long) freq);
+		}
 	}
 }
 
@@ -202,11 +226,24 @@ static void iio_toggle_button_save(struct iio_widget *widget)
 	active = widget->priv ? !active : active;
 
 	if (widget->chn)
+	{
+        //debug
+        //debug
+	    const char  *name;
+        name=iio_channel_get_name(widget->chn);
+        printf("iio_channel_attr_write_bool on channel %s atrib %s value %d\n",name,widget->attr_name,active);
 		iio_channel_attr_write_bool(widget->chn,
 				widget->attr_name, active);
+	}
 	else
+	{
+        //debug
+	    const char  *name;
+        name=iio_device_get_name(widget->dev);
+        printf("iio_device_attr_write_bool on device %s atrib %s value %d\n",name,widget->attr_name,active);
 		iio_device_attr_write_bool(widget->dev,
 				widget->attr_name, active);
+	}
 }
 
 static void iio_toggle_button_update_value(struct iio_widget *widget,
@@ -251,11 +288,23 @@ static void iio_toggle_button_init(struct iio_widget *widget,
 static void iio_button_save(struct iio_widget *widget)
 {
 	if (widget->chn)
+	{
+        //debug
+	    const char  *name;
+        name=iio_channel_get_name(widget->chn);
+        printf("iio_channel_attr_write_bool on channel %s atrib %s value %d\n",name,widget->attr_name,1);
 		iio_channel_attr_write_bool(widget->chn,
 					    widget->attr_name, 1);
+	}
 	else
+	{
+        //debug
+	    const char  *name;
+        name=iio_device_get_name(widget->dev);
+        printf("iio_device_attr_write_bool on device %s atrib %s value %d\n",name,widget->attr_name,1);
 		iio_device_attr_write_bool(widget->dev,
 						   widget->attr_name, 1);
+	}
 }
 
 static void iio_button_update_value(struct iio_widget *widget,
@@ -287,9 +336,21 @@ static void iio_combo_box_save(struct iio_widget *widget)
 		return;
 
 	if (widget->chn)
+	{
+        //debug
+	    const char  *name;
+        name=iio_channel_get_name(widget->chn);
+        printf("iio_channel_attr_write on channel %s atrib %s value %s\n",name,widget->attr_name,text);
 		iio_channel_attr_write(widget->chn, widget->attr_name, text);
+	}
 	else
+	{
+        //debug
+	    const char  *name;
+        name=iio_device_get_name(widget->dev);
+        printf("iio_device_attr_write on device %s atrib %s value %s\n",name,widget->attr_name,text);
 		iio_device_attr_write(widget->dev, widget->attr_name, text);
+	}
 }
 
 static void iio_combo_box_update_value(struct iio_widget *widget,
